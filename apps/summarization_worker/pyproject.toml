@@ -1,0 +1,22 @@
+[project]
+name = "summarization-worker"
+version = "0.1.0"
+description = "Celery worker for AI meeting summarization"
+requires-python = ">=3.12"
+dependencies = [
+    "celery[redis]>=5.4.0",
+    "sqlalchemy[asyncio]>=2.0.36",
+    "asyncpg>=0.30.0",
+    "pydantic>=2.10.0",
+    "pydantic-settings>=2.6.0",
+    "structlog>=24.0.0",
+    "openai>=1.14.0",
+    "python-dotenv>=1.0.0",
+    "common",
+    "contracts",
+    "google-genai>=2.10.0",
+]
+
+[tool.uv.sources]
+common = { workspace = true }
+contracts = { workspace = true }

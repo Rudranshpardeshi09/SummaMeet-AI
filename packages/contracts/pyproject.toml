@@ -1,0 +1,8 @@
+[project]
+name = "contracts"
+version = "0.1.0"
+description = "Shared Pydantic schemas, enums, and data contracts"
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.10.0",
+]

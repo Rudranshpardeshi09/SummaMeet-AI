@@ -1,0 +1,104 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+
+# UV
+.python-version
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment & Secrets
+.env
+*.pem
+*.key
+jwt_keys/
+
+# Docker volumes
+.docker-data/
+postgres_data/
+redis_data/
+minio_data/
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+
+# ruff
+.ruff_cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Alembic
+db/alembic/__pycache__/
+
+# Database files (local SQLite)
+*.sqlite3
+*.sqlite3-journal
+*.db
+
+# Node / Frontend
+node_modules/
+.next/
+out/
+dist-web/
+
+# Bot Worker Recordings
+recordings/
+apps/bot_worker/recordings/
+
+# Transcription Downloads
+downloads/
+apps/transcription_worker/downloads/
+
+# Media files
+*.webm
+*.wav
+*.mp4
+*.mp3
+*.flac
+
+# Screenshots
+*.png
+
+# Next.js turbo
+.turbo/
+
+# Misc
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Browser Profile
+browser_profile/
+apps/bot_worker/browser_profile/
+
+implementation_plan.md
+resource.md

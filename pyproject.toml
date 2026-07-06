@@ -1,0 +1,55 @@
+[project]
+name = "ai-video-note-taker"
+version = "0.1.0"
+description = "AI-powered meeting note taker with Google Meet bot, bilingual transcription, and admin dashboard"
+requires-python = ">=3.12"
+readme = "README.md"
+
+[tool.uv.workspace]
+members = [
+    "apps/api",
+    "apps/bot_worker",
+    "apps/transcription_worker",
+    "apps/summarization_worker",
+    "apps/pdf_worker",
+    "packages/common",
+    "packages/contracts",
+    "packages/auth",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.8.0",
+    "black>=24.0.0",
+    "mypy>=1.13.0",
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-cov>=6.0.0",
+    "pre-commit>=4.0.0",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B", "A", "C4", "SIM", "TCH"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["common", "contracts", "auth_pkg"]
+
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

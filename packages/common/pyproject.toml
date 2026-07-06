@@ -1,0 +1,9 @@
+[project]
+name = "common"
+version = "0.1.0"
+description = "Shared utilities for ai-video-note-taker"
+requires-python = ">=3.12"
+dependencies = [
+    "structlog>=24.0.0",
+    "python-dotenv>=1.0.0",
+]

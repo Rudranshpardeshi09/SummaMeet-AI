@@ -1,0 +1,91 @@
+# =============================================================================
+# AI Video Note Taker — Docker Compose (Local Development)
+# =============================================================================
+# Start all infrastructure services:
+#   docker compose up -d
+#
+# Stop all services:
+#   docker compose down
+#
+# Reset all data:
+#   docker compose down -v
+# =============================================================================
+
+services:
+  # ---- PostgreSQL 16 ----
+  postgres:
+    image: postgres:16-alpine
+    container_name: notetaker-postgres
+    environment:
+      POSTGRES_DB: ai_note_taker
+      POSTGRES_USER: notetaker
+      POSTGRES_PASSWORD: notetaker_dev_password
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U notetaker -d ai_note_taker"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ---- Redis 7 ----
+  redis:
+    image: redis:7-alpine
+    container_name: notetaker-redis
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+
+  # ---- MinIO (S3-Compatible Object Storage) ----
+  minio:
+    image: minio/minio:latest
+    container_name: notetaker-minio
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"   # API
+      - "9001:9001"   # Console UI
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    command: server /data --console-address ":9001"
+    restart: unless-stopped
+
+  # ---- MinIO Bucket Initialization ----
+  minio-init:
+    image: minio/mc:latest
+    container_name: notetaker-minio-init
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set local http://minio:9000 minioadmin minioadmin;
+      mc mb --ignore-existing local/audio-chunks;
+      mc mb --ignore-existing local/report-artifacts;
+      echo 'MinIO buckets initialized successfully';
+      "
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  minio_data:
+    driver: local

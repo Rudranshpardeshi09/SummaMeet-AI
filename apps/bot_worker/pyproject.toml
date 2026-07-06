@@ -1,0 +1,21 @@
+[project]
+name = "bot-worker"
+version = "0.1.0"
+description = "Playwright-based Google Meet bot worker"
+requires-python = ">=3.12"
+dependencies = [
+    "playwright>=1.48.0",
+    "celery[redis]>=5.4.0",
+    "redis>=5.2.0",
+    "httpx>=0.27.0",
+    "minio>=7.2.0",
+    "pydantic>=2.10.0",
+    "pydantic-settings>=2.6.0",
+    "python-dotenv>=1.0.0",
+    "contracts",
+    "common",
+]
+
+[tool.uv.sources]
+contracts = { workspace = true }
+common = { workspace = true }

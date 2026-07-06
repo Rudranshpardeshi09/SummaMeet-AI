@@ -1,0 +1,30 @@
+[project]
+name = "api"
+version = "0.1.0"
+description = "FastAPI backend API for AI Video Note Taker"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+    "sqlalchemy[asyncio]>=2.0.36",
+    "asyncpg>=0.30.0",
+    "alembic>=1.14.0",
+    "redis>=5.2.0",
+    "pydantic>=2.10.0",
+    "pydantic-settings>=2.6.0",
+    "python-dotenv>=1.0.0",
+    "cryptography>=44.0.0",
+    "celery[redis]>=5.4.0",
+    "minio>=7.2.0",
+    "common",
+    "contracts",
+    "auth-pkg",
+]
+
+[project.scripts]
+seed-db = "app.db.seed:main"
+
+[tool.uv.sources]
+common = { workspace = true }
+contracts = { workspace = true }
+auth-pkg = { workspace = true }

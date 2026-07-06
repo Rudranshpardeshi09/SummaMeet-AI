@@ -1,0 +1,10 @@
+[project]
+name = "auth-pkg"
+version = "0.1.0"
+description = "Shared authentication helpers — JWT, password hashing, guards"
+requires-python = ">=3.12"
+dependencies = [
+    "pyjwt[crypto]>=2.9.0",
+    "bcrypt>=4.2.0",
+    "cryptography>=44.0.0",
+]
